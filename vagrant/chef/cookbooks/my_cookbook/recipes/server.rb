@@ -19,6 +19,7 @@ cookbook_file "/etc/profile.d/zend-server.sh" do
   source "zend-server.sh"
   group "root"
   owner "root"
+  mode "0644"
 end
 
 cookbook_file "/etc/apache2/sites-available/app.conf" do
