@@ -7,7 +7,7 @@ Server 6 and PHP 5.4.
 
 Run `vagrant up` from the `vagrant` directory, eg
 
-   (cd vagrant; vagrant up)
+    (cd vagrant; vagrant up)
     
 ## Forwarded Ports
 
