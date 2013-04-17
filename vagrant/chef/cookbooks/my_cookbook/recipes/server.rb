@@ -63,6 +63,6 @@ execute "pear-channel discovery" do
 end
 
 execute "php install" do 
-  command "sudo pear install phpunit/PHPUnit --alldeps"
+  command "sudo pear install phpunit/PHPUnit --alldeps | cat"
 end
 
