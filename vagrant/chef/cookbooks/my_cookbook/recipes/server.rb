@@ -50,3 +50,19 @@ end
 service "apache2" do
   action :restart
 end
+
+execute "upgrade-pear" do
+  command "pear upgrade pear | cat" # piping through cat appears to be the only sane way of stopping pear returning exit code 1 on no upgrade
+end
+
+execute "pear-channel discovery" do 
+  command "sudo pear channel-discover pear.phpunit.de | cat"
+  command "sudo pear channel-discover components.ez.no | cat"
+  command "sudo pear channel-discover pear.symfony.com | cat"
+
+end
+
+execute "php install" do 
+  command "sudo pear install phpunit/PHPUnit --alldeps"
+end
+
