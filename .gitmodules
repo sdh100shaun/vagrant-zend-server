@@ -1,0 +1,3 @@
+[submodule "vagrant/chef/cookbooks/phpunit"]
+	path = vagrant/chef/cookbooks/phpunit
+	url = git@github.com:msonnabaum/chef-phpunit.git
