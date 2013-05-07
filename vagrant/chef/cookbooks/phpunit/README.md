@@ -11,4 +11,4 @@ pear
 License and Authors
 -------------------
 Authors:Shaun hare 
-license:  http://shaunhare.mit-license.org/
+license:  http://shaun.mit-license.org/
