@@ -2,7 +2,8 @@
 
 This Vagrant setup configures an Ubuntu 12.04 (Precise) 64-bit box with Zend
 Server 6 and PHP 5.4.
-
+and phpunit installed by pear 
+It was originally forked from philBrown / vagrant-zend-server
 ## Quick Start
 
 Run `vagrant up` from the `vagrant` directory, eg

@@ -1,3 +1,4 @@
+
 execute "install zend key" do
   command "wget http://repos.zend.com/zend.key -O- |apt-key add -"
   not_if "apt-key list| grep -c zend"
@@ -9,7 +10,11 @@ execute "install zend repo" do
 end
 
 execute "update apt" do
-  command "apt-get update -q -y"
+    
+
+    command "apt-get update -q -y"
+    not_if node.default["update"]
+  
 end
 
 package "zend-server-php-5.4"
