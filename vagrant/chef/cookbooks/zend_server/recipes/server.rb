@@ -79,6 +79,7 @@ end
 # edit pcntl.ini (required for PHPUnit)
 template "/usr/local/zend/etc/conf.d/pcntl.ini" do
   source "pcntl.ini.erb"
+  mode 00775
   owner "root"
   group "zend"
 end
@@ -88,6 +89,7 @@ template "/usr/local/zend/etc/conf.d/mssql.ini" do
   source "mssql.ini.erb"
   owner "root"
   group "zend"
+  mode 00775
 end
 
 service "apache2" do
