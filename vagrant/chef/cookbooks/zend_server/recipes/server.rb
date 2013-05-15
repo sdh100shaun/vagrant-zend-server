@@ -12,7 +12,7 @@ execute "update apt" do
     
 
     command "apt-get update -q -y"
-    only_if node[:update]
+    
   
 end
 
@@ -42,6 +42,8 @@ cookbook_file "/etc/apache2/sites-available/app.conf" do
   group "root"
   owner "root"
 end
+
+
 
 execute "disable default site" do
   command "a2dissite default"
@@ -74,7 +76,19 @@ template "/etc/freetds/freetds.conf" do
   })
 end
 
+# edit pcntl.ini (required for PHPUnit)
+template "/usr/local/zend/etc/conf.d/pcntl.ini" do
+  source "pcntl.ini.erb"
+  owner "root"
+  group "zend"
+end
 
+# edit mssql.ini
+template "/usr/local/zend/etc/conf.d/mssql.ini" do
+  source "mssql.ini.erb"
+  owner "root"
+  group "zend"
+end
 
 service "apache2" do
   action :restart

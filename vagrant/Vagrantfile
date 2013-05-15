@@ -9,7 +9,7 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 10081, 10081
   config.vm.forward_port 10082, 10082
 
-  config.vm.share_folder "v-web-app", "/home/vagrant/app", "../app"
+  config.vm.share_folder "v-web-app", "/home/vagrant/app", "../../../php/"
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "chef/cookbooks"
