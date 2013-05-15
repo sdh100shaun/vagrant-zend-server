@@ -2,7 +2,7 @@ name "server"
 description "example web server role"
 
 run_list(
-  "recipe[my_cookbook::server]",
+  "recipe[zend_server::server]",
   "recipe[phpunit]"
 )
 
