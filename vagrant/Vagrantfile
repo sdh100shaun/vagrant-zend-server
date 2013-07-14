@@ -1,19 +1,67 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant::Config.run do |config|
-  config.vm.box = "precise64"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.network :hostonly, "33.33.0.4"
-  config.vm.forward_port 80, 8080
-  config.vm.forward_port 10081, 10081
-  config.vm.forward_port 10082, 10082
+configjson = {
+  :network_ips => { 
+    :app => "192.168.1.45",
+    :db => "192.168.1.50"
+  },
+  :proxy => {
+    :http_proxy => "http://mainproxy.nottingham.ac.uk:8080"
+  }
+}
 
-  config.vm.share_folder "v-web-app", "/home/vagrant/app", "../../../php/"
+Vagrant.configure("2") do |config|
 
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "chef/cookbooks"
-    chef.roles_path = "chef/roles"
-    chef.add_role "server"
+  config.vm.define :app do |app|
+    app.vm.box = "precise64"
+    app.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+    app.vm.hostname = "dev.local"
+    app.vm.network :private_network, ip: configjson[:network_ips][:app]
+
+    app.vm.synced_folder "/Users/cczsh/development/php", "/srv/host_share"
+
+    app.vm.provider "virtualbox" do |v|
+      v.name = "Vagrant App"
+    end
+
+    app.vm.provision :shell, 
+      :inline => "echo http_proxy=\"#{configjson[:proxy][:http_proxy]}\" >> /etc/environment"
+
+    app.vm.provision :chef_solo do |chef|
+      chef.http_proxy = configjson[:proxy][:http_proxy]
+      chef.cookbooks_path = "chef/cookbooks"
+
+      chef.json = configjson
+
+      chef.roles_path = "chef/roles"
+      chef.add_role "appserver"
+    end
+  end
+
+  config.vm.define :db do |db|
+    db.vm.box = "precise64"
+    db.vm.box_url = "http://files.vagrantup.com/precise64.box"
+
+    db.vm.hostname = "db.local"
+    db.vm.network :private_network, ip: configjson[:network_ips][:db]
+
+    db.vm.provider "virtualbox" do |v|
+      v.name = "Vagrant DB"
+    end
+
+    db.vm.provision :shell, 
+      :inline => "echo http_proxy=\"#{configjson[:proxy][:http_proxy]}\" >> /etc/environment"
+
+    db.vm.provision :chef_solo do |chef|
+      chef.http_proxy = configjson[:proxy][:http_proxy]
+      chef.cookbooks_path = "chef/cookbooks"
+
+      chef.json = configjson
+
+      chef.roles_path = "chef/roles"
+      chef.add_role "dbserver"
+    end
   end
 end

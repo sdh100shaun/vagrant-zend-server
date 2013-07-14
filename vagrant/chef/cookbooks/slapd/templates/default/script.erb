@@ -1,0 +1,15 @@
+sudo apt-get update
+sudo apt-get install -y slapd ldap-utils # -y removes the prompt for install: Y/n
+
+## N.B. Use 'password' as the admin password
+
+# Using the provided OpenLDAP LDIFs
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/ldap/schema/cosine.ldif
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/ldap/schema/nis.ldif
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/ldap/schema/inetorgperson.ldif
+
+# Using the LDIFs attached to this Confluence page
+sudo ldapadd -Y EXTERNAL -H ldapi:/// -f backend.example.com.ldif
+sudo ldapadd -x -c -D cn=admin,dc=example,dc=com -w password -f /home/vagrant/samples/frontend.example.com.ldif
+sudo ldapadd -x -c -D cn=admin,dc=example,dc=com -w password -f /home/vagrant/samples/people.example.com.ldif
+sudo ldapadd -x -c -D cn=admin,dc=example,dc=com -w password -f /home/vagrant/samples/royal.example.com.ldif
