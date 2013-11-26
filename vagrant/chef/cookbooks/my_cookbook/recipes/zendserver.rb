@@ -12,6 +12,21 @@ execute "update apt" do
   command "apt-get update -q -y"
 end
 
+
+execute "install autoconf tools" do 
+
+  command "apt-get install autoconf -q -y"
+
+end
+
+execute "install make tools" do 
+
+  command "apt-get install make -q -y"
+
+end
+
+
+
 package "zend-server-php-5.4"
 package "apache2-mpm-itk"
 
@@ -26,6 +41,28 @@ cookbook_file "/etc/apache2/sites-available/app.conf" do
   source "app.conf"
   group "root"
   owner "root"
+end
+
+
+execute "install mongo driver" do 
+
+  command "sudo pecl install mongo| cat "
+
+end
+
+template "/usr/local/zend/etc/mongo.ini" do
+  source "mongo.ini.erb"
+  group "root"
+  owner "zend"
+  mode "0644"
+end
+
+
+template "/usr/local/zend/etc/pcntl.ini" do
+  source "pcntl.ini.erb"
+  group "root"
+  owner "zend"
+  mode "0644"
 end
 
 execute "disable default site" do
