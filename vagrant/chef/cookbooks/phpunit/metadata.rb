@@ -1,6 +1,6 @@
 name             'phpunit'
-maintainer       'YOUR_COMPANY_NAME'
-maintainer_email 'YOUR_EMAIL'
+maintainer       'Shaun Hare'
+maintainer_email 'shaun@shaunhare.co.uk'
 license          'All rights reserved'
 description      'Installs/Configures phpunit'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
