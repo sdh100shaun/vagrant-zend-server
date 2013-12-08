@@ -65,6 +65,17 @@ template "/usr/local/zend/etc/pcntl.ini" do
   mode "0644"
 end
 
+execute "enable pcntl" do
+  command <<-EOC 
+    sed -i 's,;\\(extension=pcntl.so\\),\\1,g' /usr/local/zend/etc/conf.d/pcntl.ini
+  EOC
+end
+
+execute "enable mongo" do
+  command <<-EOC 
+    sed -i 's,;\\(extension=mongo.so\\),\\1,g' /usr/local/zend/etc/conf.d/mongo.ini
+  EOC
+end
 execute "disable default site" do
   command "a2dissite default"
 end

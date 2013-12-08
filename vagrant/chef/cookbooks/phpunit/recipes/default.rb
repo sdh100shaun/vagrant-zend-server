@@ -8,7 +8,7 @@
 #
 execute "config pear proxy" do
   command "/usr/local/zend/bin/pear config-set http_proxy #{node['proxy']['http_proxy']}"
-
+  not_if "echo $http_proxy | grep ''"
 end
 
 channels = %w{pear.phpunit.de,pear.symfony.com,components.ez.no}
