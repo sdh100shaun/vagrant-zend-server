@@ -4,10 +4,11 @@
 configjson = {
   :network_ips => { 
     :app => "192.168.50.4",
-    :db => "192.168.50.14"
+    :db => "192.168.50.10",
+    :search_ip =>"192.168.50.1"
   },
   :proxy => {
-    :http_proxy => ""
+    :http_proxy => "http://mainproxy.nottingham.ac.uk:8080"
   }
 }
 

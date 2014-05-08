@@ -4,8 +4,8 @@ execute "install zend key" do
 end
 
 execute "install zend repo" do
-  command "echo 'deb http://repos.zend.com/zend-server/6.0/deb_ssl1.0 server non-free' >> /etc/apt/sources.list"
-  not_if "grep 'http://repos.zend.com/zend-server/6.0/deb_ssl1.0' -c /etc/apt/sources.list"
+  command "echo 'deb http://repos.zend.com/zend-server/6.3/deb_ssl1.0 server non-free' >> /etc/apt/sources.list"
+  not_if "grep 'http://repos.zend.com/zend-server/6.3/deb_ssl1.0' -c /etc/apt/sources.list"
 end
 
 execute "update apt" do
